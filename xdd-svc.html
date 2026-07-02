@@ -145,7 +145,7 @@ function doLogin() {
   var err = document.getElementById('login-err');
   if (pw === DEMO_PW) {
     document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = '';
+    document.getElementById('app').style.display = 'block';
     loadServices();
   } else {
     err.textContent = '❌ 密码错误，请重试';
@@ -155,18 +155,23 @@ function doLogin() {
 }
 
 async function loadServices() {
-  var res = await fetch(SB_URL + '/rest/v1/projects?status=eq.已启用&order=sort_order.asc,id.asc', {
-    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
-  });
-  var data = await res.json();
   var grid = document.getElementById('proj-grid');
-  if (!data || data.length === 0) {
-    grid.innerHTML = '<div style="color:#8BA3C7;padding:20px;">暂无服务项目</div>';
-    return;
+  try {
+    var res = await fetch(SB_URL + '/rest/v1/projects?status=eq.已启用&order=sort_order.asc,id.asc', {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    var data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      grid.innerHTML = '<div style="color:#8BA3C7;padding:20px;">暂无服务项目</div>';
+      return;
+    }
+    allCards = data;
+    renderCards(data);
+    document.getElementById('top-count').textContent = '共 ' + data.length + ' 项服务';
+  } catch(e) {
+    grid.innerHTML = '<div style="color:#EF4444;padding:20px;">加载失败: ' + e.message + '</div>';
+    document.getElementById('top-count').textContent = '加载失败';
   }
-  allCards = data;
-  renderCards(data);
-  document.getElementById('top-count').textContent = '共 ' + data.length + ' 项服务';
 }
 
 function renderCards(items) {
