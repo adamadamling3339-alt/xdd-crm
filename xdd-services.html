@@ -136,7 +136,7 @@
 <script>
 const DEMO_PW = 'Demo888';
 const SB_URL = 'https://kkxdhkqatalgxbsogyly.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtreGRhdGFsZ3xic29neWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk1NDYxNzAsImV4cCI6MjA2NTEyMjE3MH0.rGDPMSJF1hxGkJEbqp2TEbO9RxC7gLfGLeSs7-vQrDs';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtreGRhdGFsZ3xic29neWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDQ4NTksImV4cCI6MjA5ODI4MDg1OX0.ewte2esrv1cOEQ5GngSA7dZqJkHCyiCcUXExkxlClk';
 
 let allCards = [];
 
@@ -148,7 +148,7 @@ function doLogin() {
     document.getElementById('app').style.display = '';
     loadServices();
   } else {
-    err.textContent = '❌ 密码错误，请重试';
+    err.textContent = '❌ 密码�Y诬，请重试';
     document.getElementById('pw-input').value = '';
     setTimeout(function(){ err.textContent = ''; }, 2000);
   }
@@ -161,12 +161,12 @@ async function loadServices() {
   var data = await res.json();
   var grid = document.getElementById('proj-grid');
   if (!data || data.length === 0) {
-    grid.innerHTML = '<div style="color:#8BA3C7;padding:20px;">暊y���服务项目</div>';
+    grid.innerHTML = '<div style="color:#8BA3C7;padding:20px;">暚敠服务项目</div>';
     return;
   }
   allCards = data;
   renderCards(data);
-  document.getElementById('top-count').textContent = '共 ' + data.length + ' 项服务';
+  document.getElementById('top-count').textContent = '共 ' + data.length + ' 项目';
 }
 
 function renderCards(items) {
@@ -179,13 +179,13 @@ function renderCards(items) {
     var cls = isRmb ? 'proj-cost rmb' : 'proj-cost';
     var costHtml = dispVal > 0
       ? '<span class="cur-badge">' + cur + '</span>' + dispVal.toLocaleString()
-      : '<span style="color:#4B6080;font-size:13px;">请询价</span>';
+      : '<span style="color:#4B6080;font-size:13px;">请询丷</span>';
     return '<div class="proj-card">' +
       '<div class="proj-name">' + p.name + '</div>' +
       '<div class="' + cls + '">' + costHtml + '</div>' +
       '</div>';
   }).join('');
-  document.getElementById('svc-count').textContent = '显示 ' + items.length + ' 项';
+  document.getElementById('svc-count').textContent = '嘾示 ' + items.length + ' 项';
 }
 
 function filterCards() {
